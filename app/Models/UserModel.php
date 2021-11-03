@@ -1,19 +1,18 @@
 <?php
+
 namespace App\Models;
-use CodeIgniter\Modal;
+
+use CodeIgniter\Model;
+
 class UserModel extends Model
 {
   protected $table = 'users';
-  protected $allowedFields = ['email','password'];
-  protected $beforeInsert = ['beforeInsert'];
-  protected $beforeUpdate = ['beforeUpdate'];
-  protected function beforeInsert(array $data)
-  {
-    $data = $this->passwordHash($data);
+  protected $primaryKey = 'email';
+  protected $allowedFields = ['email', 'password'];
+  protected $beforeInsert = ['hashPassword'];
+  protected $beforeUpdate = ['hashPassword'];
 
-    return $data;
-  }
-  protected function passwordHash(array $data)
+  protected function hashPassword(array $data)
   {
     if (isset($data['data']['password']))
       $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
