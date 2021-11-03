@@ -2,7 +2,7 @@
 namespace App\Models;
 use CodeIgniter\Model;
 
-class Cusomer_model extends Model
+class Customer_model extends Model
 {
   protected $table = 'customer';
   public function getCustomer($id = false)

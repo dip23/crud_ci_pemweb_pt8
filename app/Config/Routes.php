@@ -35,6 +35,12 @@ $routes->get('/', 'Login::index');
 $routes->get('logout','Login::logout');
 $routes->match(['get','post'],'register', 'Login::register');
 $routes->get('dashboard','Dashboard::index',['filter' => 'auth']);
+$routes->get('/customer', 'Customers::index');
+$routes->get('/customer/add_new', 'Customers::add_new');
+$routes->post('/customer/save', 'Customers::save');
+$routes->get('/customer/edit/(:num)', 'Customers::edit/$1');
+$routes->post('/customer/update', 'Customers::update');
+$routes->get('/customer/delete/(:num)', 'Customers::delete/$1');
 
 /*
  * --------------------------------------------------------------------

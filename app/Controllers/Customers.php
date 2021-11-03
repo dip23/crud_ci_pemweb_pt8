@@ -4,7 +4,7 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\Customer_model;
 
-class Customer extends Controller{
+class Customers extends Controller{
   public function index()
   {
     $model = new Customer_model();
@@ -30,8 +30,8 @@ class Customer extends Controller{
 
   public function edit($id)
   {
-    $model = new Cusomer_model();
-    $data['customer'] = $model->getCusutomer($id)->getRow();
+    $model = new Customer_model();
+    $data['customer'] = $model->getCustomer($id)->getRow();
     echo view('edit_customer_view', $data);
   }
 
@@ -40,8 +40,8 @@ class Customer extends Controller{
     $model = new Customer_model();
     $id = $this->request->getPost('customer_id');
     $data = array(
-      'cutomer_firstname' => $this->request->getPost('customer_firstname'),
-      'cutomer_lastname' => $this->request->getPost('customer_lastname'),
+      'customer_firstname' => $this->request->getPost('customer_firstname'),
+      'customer_lastname' => $this->request->getPost('customer_lastname'),
     );
     $model->updateCustomer($data, $id);
     return redirect()->to('/customer');
