@@ -1,8 +1,13 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Models\UserModel;
-class Login extends BaseController{
-  public function index(){
+
+class Login extends BaseController
+{
+  public function index()
+  {
     $data = [];
     helper(['form']);
     if ($this->request->getMethod() == 'post') {
@@ -18,17 +23,17 @@ class Login extends BaseController{
       ];
       if (!$this->validate($rules, $errors)) {
         $data['validation'] = $this->validator;
-      }else{
+      } else {
         $model = new UserModel();
 
         $user = $model->where('email', $this->request->getVar('email'))
-            ->first();
-        
+          ->first();
+
         $this->setUserSession($user);
         return redirect()->to('dashboard');
       }
     }
-    return view('login',$data);
+    return view('login', $data);
   }
   private function setUserSession($user)
   {
@@ -43,7 +48,7 @@ class Login extends BaseController{
   {
     $data = [];
     helper(['form']);
-    if ($this->request->getMethod() == 'post'){
+    if ($this->request->getMethod() == 'post') {
       // validation
       $rules = [
         'email' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[users.email]',
@@ -52,16 +57,16 @@ class Login extends BaseController{
       ];
       if (!$this->validate($rules)) {
         $data['validation'] = $this->validator;
-      }else{
+      } else {
         $model = new UserModel();
-        
+
         $newData = [
           'email' => $this->request->getVar('email'),
           'password' => $this->request->getVar('password'),
         ];
-        $model->save($newData);
+        $model->ignore(true)->insert($newData);
         $session = session();
-        $session->setFlashdata('success','Successful Registration');
+        $session->setFlashdata('success', 'Successful Registration');
         return redirect()->to('/');
       }
     }
